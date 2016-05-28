@@ -1,0 +1,261 @@
+﻿//'set deadzone: .15 is normal
+
+if(xinput.LeftShoulder) then
+    var.a=uppercase(var.a)
+    var.b=uppercase(var.b)
+    var.x=uppercase(var.x)
+    var.y=uppercase(var.y)
+endif
+var.deadzone=.15
+var.size=32;
+var.spacer=10;
+var.cursorsShift=[0,0];
+var.textShiftBack=[20,20]
+var.cursorsVisible=true;
+
+var.ButtonPosXs1to3=[var.size+var.cursorsShift[1],var.size*2+var.cursorsShift[1],var.cusorsShift[1]]
+var.ButtonPosXs4=var.size+var.cursorsShift[1];
+
+var.TextPosXs1to3=var.ButtonPosXs1to3-[var.textShiftBack[1],var.textShiftBack[1],var.textShiftBack[1]]
+var.TextPosXs4=var.ButtonPosXs4-var.textShiftBack[1];
+
+
+var.ButtonPosYs1to3=[var.cursorsShift[2]+var.size*2+var.spacer,var.size+var.cursorsShift[2]+var.spacer/2,var.size+var.cusorsShift[2]+var.spacer/2]
+var.ButtonPosYs4=var.cursorsShift[2];
+
+var.TextPosYs1to3=var.ButtonPosYs1to3-[var.textShiftBack[2],var.textShiftBack[2],var.textShiftBack[2]]
+var.TextPosYs4=var.ButtonPosYs4-var.textShiftBack[2];
+
+
+debug=var.ButtonPosXs1to3
+
+cursor1.Image="a.cur"
+cursor1.Caption=""
+cursor1.PosX=var.ButtonPosXs1to3[1]
+cursor1.PosY=var.ButtonPosYs1to3[1]
+cursor1.Visible=var.cursorsVisible
+
+cursor2.Image="b.cur"
+cursor2.Caption=""
+cursor2.PosX=var.ButtonPosXs1to3[2]
+cursor2.PosY=var.ButtonPosYs1to3[2] 
+cursor2.Visible=var.cursorsVisible
+
+cursor3.Image="x.cur"
+cursor3.Caption=""
+cursor3.PosX=var.ButtonPosXs1to3[3]
+cursor3.PosY=var.ButtonPosYs1to3[2]  
+cursor3.Visible=var.cursorsVisible
+
+
+cursor4.Image="y.cur"
+cursor4.Caption=""
+cursor4.PosX=var.ButtonPosXs4
+cursor4.PosY=var.ButtonPosYs4  
+cursor4.Visible=var.cursorsVisible
+
+cursor5.Image="blank.cur"
+cursor5.Caption=var.a
+cursor5.PosX=var.TextPosXs1to3[1]
+cursor5.PosY=var.TextPosYs1to3[1] 
+cursor5.Visible=var.cursorsVisible
+
+                     //just to change the caption color
+cursor6.Image="blank.cur"
+cursor6.Caption=""
+cursor6.PosX=var.TextPosXs1to3[2]
+cursor6.PosY=var.TextPosYs1to3[2] 
+cursor6.Visible=false
+
+cursor7.Image="blank.cur"
+cursor7.Caption=var.b
+cursor7.PosX=var.TextPosXs1to3[2]
+cursor7.PosY=var.TextPosYs1to3[2]  
+cursor7.Visible=var.cursorsVisible
+
+
+cursor8.Image="blank.cur"
+cursor8.Caption=var.x
+cursor8.PosX=var.TextPosXs1to3[3]
+cursor8.PosY=var.TextPosYs1to3[3] 
+cursor8.Visible=var.cursorsVisible
+
+cursor9.Image="blank.cur"
+cursor9.Caption=var.y
+cursor9.PosX=var.TextPosXs4
+cursor9.PosY=var.TextPosYs4
+cursor9.Visible=var.cursorsVisible
+if(!xinput.RightTrigger) then
+//'basic function
+    if var.speed>0 then
+        mouse.x=var.xone
+        mouse.y=var.yone
+    else
+        mouse.x=mouse.x
+        mouse.y=mouse.y
+    endif
+    if pressed(xinput.RightThumb) and pressed(xinput.LeftThumb) then
+        exitprogram
+    endif
+    var.ytwo=xinput.Joy1Y
+    var.xtwo=xinput.Joy1X
+    var.yone=var.yone-(var.ytwo/(70/var.speed))
+    var.xone=var.xone+(var.xtwo/(70/var.speed))
+    mouse.LeftButton=xinput.A
+    mouse.RightButton=xinput.B
+    //'dead zone and speed
+    if var.xtwo<var.deadzone and var.xtwo> -(var.deadzone) and var.ytwo<var.deadzone and var.ytwo> -(var.deadzone) then
+        var.stop=1
+    else
+        var.stop=0
+    endif
+    if var.stop=1 then
+        var.speed=0
+    else
+        var.speed=1.01-xinput.LeftTrigger
+    endif
+    //'scroll wheel
+    if xinput.Joy2Y>0 then
+        var.scrollup=xinput.Joy2Y
+    endif
+    if xinput.Joy2Y<0 then
+        var.scrolldown=xinput.joy2y
+    endif
+    mouse.WheelUp=var.mody2*var.scrollup
+    mouse.WheelDown=var.mody2*var.scrolldown
+    var.mody1=var.mody1+(xinput.Joy2Y/4)
+    var.mody2=var.mody1 mod 2
+
+    if xinput.Joy2X>0 then
+        var.scrollright=xinput.Joy2X
+    endif
+    if xinput.Joy2X<0 then
+        var.scrollleft=xinput.Joy2X
+    endif
+    mouse.WheelLeft=var.modx2*var.scrollleft
+    mouse.WheelRight=var.modx2*var.scrollright
+    var.modx1=var.modx1+(xinput.Joy2X/6)
+    var.modx2=var.modx1 mod 2
+    //'edges
+    if var.xone<0 then
+        var.xone=0
+    endif
+    if var.xone>1 then
+        var.xone=1
+    endif
+    if var.yone<0 then
+        var.yone=0
+    endif
+    if var.yone>1 then
+        var.yone=1
+    endif
+    //'keys
+    key.Up=xinput.Up
+    key.Down=xinput.Down
+    key.Left=xinput.Left
+    key.Right=xinput.Right
+    key.VolumeUp=xinput.RightShoulder
+    key.VolumeDown=xinput.LeftShoulder
+    key.Enter=xinput.Y
+    key.BackSpace=xinput.X
+    key.Escape=xinput.Back
+
+else
+    key.Shift=xinput.LeftShoulder
+
+    key.BackSpace=xinput.RightShoulder
+    key.LeftControl=xinput.RightThumb
+    key.Space=xinput.LeftThumb
+
+    mouse.LeftButton=mouse.LeftButton
+    mouse.RightButton=mouse.RightButton
+    //'typing
+    if(xinput.Joy1X>.3333333) then
+        if(xinput.joy1Y>.33333) then
+            key.o=xinput.X
+            key.p=xinput.y
+            key.LeftBracket=xinput.A
+            key.RightBracket=xinput.B
+            var.x="o"
+            var.y="p"
+            var.a="["
+            var.b="]"
+        else if(xinput.joy1Y<-.333333) then
+            key.period=xinput.X
+            key.Slash=xinput.y
+            key.tab=xinput.A
+            key.enter=xinput.B
+            var.x="."
+            var.y="/"
+            var.a="tab"
+            var.b="enter"
+        else
+            key.l=xinput.X
+            key.semicolon=xinput.y
+            key.apostrophe=xinput.A
+            key.backslash=xinput.B
+            var.x="l"
+            var.y=";"
+            var.a="'"
+            var.b="\"
+        endif
+    else if(xinput.Joy1X<-.3333333) then
+        if(xinput.joy1Y>.33333) then
+            key.q=xinput.X
+            key.w=xinput.y
+            key.e=xinput.A
+            key.r=xinput.B
+            var.x="q"
+            var.y="w"
+            var.a="e"
+            var.b="r"
+        else if(xinput.joy1Y<-.333333) then
+            key.z=xinput.X
+            key.x=xinput.y
+            key.c=xinput.A
+            key.v=xinput.B
+            var.x="z"
+            var.y="x"
+            var.a="c"
+            var.b="v"
+        else
+            key.a=xinput.X
+            key.s=xinput.y
+            key.d=xinput.A
+            key.f=xinput.B
+            var.x="a"
+            var.y="s"
+            var.a="d"
+            var.b="f"
+        endif
+    else
+        if(xinput.joy1Y>.33333) then
+            key.t=xinput.X
+            key.y=xinput.y
+            key.u=xinput.A
+            key.i=xinput.B
+            var.x="t"
+            var.y="y"
+            var.a="u"
+            var.b="i"
+        else if(xinput.joy1Y<-.333333) then
+            key.b=xinput.X
+            key.n=xinput.y
+            key.m=xinput.A
+            key.Comma=xinput.B
+            var.x="b"
+            var.y="n"
+            var.a="m"
+            var.b=","
+        else
+            key.g=xinput.X
+            key.h=xinput.y
+            key.j=xinput.A
+            key.k=xinput.B
+            var.x="g"
+            var.y="h"
+            var.a="j"
+            var.b="k"
+        endif
+    endif
+endif
