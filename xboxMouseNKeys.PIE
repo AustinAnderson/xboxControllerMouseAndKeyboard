@@ -1,90 +1,107 @@
 ﻿//'set deadzone: .15 is normal
 
-if(xinput.LeftShoulder) then
-    var.a=uppercase(var.a)
-    var.b=uppercase(var.b)
-    var.x=uppercase(var.x)
-    var.y=uppercase(var.y)
-endif
+
 var.deadzone=.15
 var.size=32;
-var.spacer=10;
 var.cursorsShift=[0,0];
 var.textShiftBack=[20,20]
-var.cursorsVisible=true;
 
-var.ButtonPosXs1to3=[var.size+var.cursorsShift[1],var.size*2+var.cursorsShift[1],var.cusorsShift[1]]
-var.ButtonPosXs4=var.size+var.cursorsShift[1];
+var.matrixX=[0,1,2]
+var.matrixY=[0,1,2]
 
-var.TextPosXs1to3=var.ButtonPosXs1to3-[var.textShiftBack[1],var.textShiftBack[1],var.textShiftBack[1]]
-var.TextPosXs4=var.ButtonPosXs4-var.textShiftBack[1];
+//cursorsBackdrops
 
-
-var.ButtonPosYs1to3=[var.cursorsShift[2]+var.size*2+var.spacer,var.size+var.cursorsShift[2]+var.spacer/2,var.size+var.cusorsShift[2]+var.spacer/2]
-var.ButtonPosYs4=var.cursorsShift[2];
-
-var.TextPosYs1to3=var.ButtonPosYs1to3-[var.textShiftBack[2],var.textShiftBack[2],var.textShiftBack[2]]
-var.TextPosYs4=var.ButtonPosYs4-var.textShiftBack[2];
-
-
-debug=var.ButtonPosXs1to3
-
-cursor1.Image="a.cur"
+cursor1.Image="topLeft.cur"
 cursor1.Caption=""
-cursor1.PosX=var.ButtonPosXs1to3[1]
-cursor1.PosY=var.ButtonPosYs1to3[1]
+cursor1.PosX=var.matrixX[1]*var.size+var.cursorShift[1]
+cursor1.PosY=var.matrixY[1]*var.size+var.cursorShift[2]  
 cursor1.Visible=var.cursorsVisible
 
-cursor2.Image="b.cur"
+cursor2.Image="topRight.cur"
 cursor2.Caption=""
-cursor2.PosX=var.ButtonPosXs1to3[2]
-cursor2.PosY=var.ButtonPosYs1to3[2] 
+cursor2.PosX=var.matrixX[3]*var.size+var.cursorShift[1]
+cursor2.PosY=var.matrixY[1]*var.size+var.cursorShift[2]
 cursor2.Visible=var.cursorsVisible
 
-cursor3.Image="x.cur"
+
+cursor3.Image="black.cur"
 cursor3.Caption=""
-cursor3.PosX=var.ButtonPosXs1to3[3]
-cursor3.PosY=var.ButtonPosYs1to3[2]  
+cursor3.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor3.PosY=var.matrixY[2]*var.size+var.cursorShift[2] 
 cursor3.Visible=var.cursorsVisible
 
-
-cursor4.Image="y.cur"
+cursor4.Image="bottomLeft.cur"
 cursor4.Caption=""
-cursor4.PosX=var.ButtonPosXs4
-cursor4.PosY=var.ButtonPosYs4  
+cursor4.PosX=var.matrixX[1]*var.size+var.cursorShift[1]
+cursor4.PosY=var.matrixY[3]*var.size+var.cursorShift[2]  
 cursor4.Visible=var.cursorsVisible
 
-cursor5.Image="blank.cur"
-cursor5.Caption=var.a
-cursor5.PosX=var.TextPosXs1to3[1]
-cursor5.PosY=var.TextPosYs1to3[1] 
+cursor5.Image="bottomRight.cur"
+cursor5.Caption=""
+cursor5.PosX=var.matrixX[3]*var.size+var.cursorShift[1]
+cursor5.PosY=var.matrixY[3]*var.size+var.cursorShift[2]  
 cursor5.Visible=var.cursorsVisible
 
-                     //just to change the caption color
-cursor6.Image="blank.cur"
-cursor6.Caption=""
-cursor6.PosX=var.TextPosXs1to3[2]
-cursor6.PosY=var.TextPosYs1to3[2] 
-cursor6.Visible=false
+//button backdrops
 
-cursor7.Image="blank.cur"
-cursor7.Caption=var.b
-cursor7.PosX=var.TextPosXs1to3[2]
-cursor7.PosY=var.TextPosYs1to3[2]  
+cursor6.Image="Ybuttons/yellow.cur"
+cursor6.Caption=""
+cursor6.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor6.PosY=var.matrixY[1]*var.size+var.cursorShift[2]
+cursor6.Visible=var.cursorsVisible
+
+cursor7.Image="Xbuttons/blue.cur"
+cursor7.Caption=""
+cursor7.PosX=var.matrixX[1]*var.size+var.cursorShift[1]
+cursor7.PosY=var.matrixY[2]*var.size+var.cursorShift[2]  
 cursor7.Visible=var.cursorsVisible
 
 
-cursor8.Image="blank.cur"
-cursor8.Caption=var.x
-cursor8.PosX=var.TextPosXs1to3[3]
-cursor8.PosY=var.TextPosYs1to3[3] 
-cursor8.Visible=var.cursorsVisible
+cursor8.Image="shift.cur"
+cursor8.Caption=""
+cursor8.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor8.PosY=var.matrixY[2]*var.size+var.cursorShift[2]
+cursor8.Visible=var.cursorsVisible and var.shift
 
-cursor9.Image="blank.cur"
-cursor9.Caption=var.y
-cursor9.PosX=var.TextPosXs4
-cursor9.PosY=var.TextPosYs4
+cursor9.Image="Bbuttons/red.cur"
+cursor9.Caption=""
+cursor9.PosX=var.matrixX[3]*var.size+var.cursorShift[1]
+cursor9.PosY=var.matrixY[2]*var.size+var.cursorShift[2]  
 cursor9.Visible=var.cursorsVisible
+
+cursor10.Image="Abuttons/green.cur"
+cursor10.Caption=""
+cursor10.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor10.PosY=var.matrixY[3]*var.size+var.cursorShift[2] 
+cursor10.Visible=var.cursorsVisible
+
+//keys
+
+cursor11.Image="Ybuttons/"+var.y+".cur"
+cursor11.Caption=""
+cursor11.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor11.PosY=var.matrixY[1]*var.size+var.cursorShift[2]
+cursor11.Visible=var.cursorsVisible
+
+cursor12.Image="Xbuttons/"+var.x+".cur"
+cursor12.Caption=""
+cursor12.PosX=var.matrixX[1]*var.size+var.cursorShift[1]
+cursor12.PosY=var.matrixY[2]*var.size+var.cursorShift[2] 
+cursor12.Visible=var.cursorsVisible
+
+
+cursor13.Image="Bbuttons/"+var.b+".cur"
+cursor13.Caption=""
+cursor13.PosX=var.matrixX[3]*var.size+var.cursorShift[1]
+cursor13.PosY=var.matrixY[2]*var.size+var.cursorShift[2] 
+cursor13.Visible=var.cursorsVisible
+
+cursor14.Image="Abuttons/"+var.a+".cur"
+cursor14.Caption=""
+cursor14.PosX=var.matrixX[2]*var.size+var.cursorShift[1]
+cursor14.PosY=var.matrixY[3]*var.size+var.cursorShift[2]   
+cursor14.Visible=var.cursorsVisible
+
 if(!xinput.RightTrigger) then
 //'basic function
     if var.speed>0 then
@@ -97,6 +114,8 @@ if(!xinput.RightTrigger) then
     if pressed(xinput.RightThumb) and pressed(xinput.LeftThumb) then
         exitprogram
     endif
+    
+    var.cursorsVisible=false;
     var.ytwo=xinput.Joy1Y
     var.xtwo=xinput.Joy1X
     var.yone=var.yone-(var.ytwo/(70/var.speed))
@@ -161,7 +180,8 @@ if(!xinput.RightTrigger) then
     key.Escape=xinput.Back
 
 else
-    key.Shift=xinput.LeftShoulder
+    var.shift=xinput.LeftShoulder
+    key.shift=var.shift
 
     key.BackSpace=xinput.RightShoulder
     key.LeftControl=xinput.RightThumb
@@ -169,6 +189,8 @@ else
 
     mouse.LeftButton=mouse.LeftButton
     mouse.RightButton=mouse.RightButton
+    
+    var.cursorsVisible=true;
     //'typing
     if(xinput.Joy1X>.3333333) then
         if(xinput.joy1Y>.33333) then
@@ -178,15 +200,25 @@ else
             key.RightBracket=xinput.B
             var.x="o"
             var.y="p"
-            var.a="["
-            var.b="]"
+            if(var.shift) then
+                var.a="leftBrace"
+                var.b="rightBrace"
+            else
+                var.a="leftBracket"
+                var.b="rightBracket"
+            endif
         else if(xinput.joy1Y<-.333333) then
             key.period=xinput.X
             key.Slash=xinput.y
             key.tab=xinput.A
             key.enter=xinput.B
-            var.x="."
-            var.y="/"
+            if(var.shift) then
+                var.x="greater"
+                var.y="question"
+            else
+                var.x="period"
+                var.y="slash"
+            endif
             var.a="tab"
             var.b="enter"
         else
@@ -195,9 +227,15 @@ else
             key.apostrophe=xinput.A
             key.backslash=xinput.B
             var.x="l"
-            var.y=";"
-            var.a="'"
-            var.b="\"
+            if(var.shift)then
+                var.y="colon"
+                var.a="quote"
+                var.b="pipe"
+            else
+                var.y="semicolon"
+                var.a="apostrophe"
+                var.b="backSlash"
+            endif
         endif
     else if(xinput.Joy1X<-.3333333) then
         if(xinput.joy1Y>.33333) then
@@ -246,7 +284,11 @@ else
             var.x="b"
             var.y="n"
             var.a="m"
-            var.b=","
+            if(var.shift) then
+                var.b="less"
+            else
+                var.b="comma"
+            endif
         else
             key.g=xinput.X
             key.h=xinput.y
